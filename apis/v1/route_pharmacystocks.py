@@ -73,7 +73,7 @@ def remove_stock(
     current_user: dict = Depends(get_current_user),
 ):
     pharmacy_id = current_user.get("pharmacy_id")
-    deleted_stock = delete_pharmacy_stock(stock_id, db, pharmacy_id)
+    deleted_stock = delete_pharmacy_stock(db, stock_id, pharmacy_id)
     if not deleted_stock:
         raise HTTPException(status_code=404, detail="Stock not found")
     return {"message": "Stock deleted successfully"}

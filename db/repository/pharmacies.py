@@ -60,6 +60,17 @@ def search_medicine(medicine_name: str, db: Session):
             "medicine": result.medicine.name,  # Use medicine name from Medicine model
             "stock": result.quantity_in_stock,  # Use correct field name for stock
             "price": result.price,  # Include price if needed
+            # 👇 Add location info (use first location if multiple exist)
+            "latitude": (
+                result.pharmacy.locations[0].latitude
+                if result.pharmacy.locations
+                else None
+            ),
+            "longitude": (
+                result.pharmacy.locations[0].longitude
+                if result.pharmacy.locations
+                else None
+            ),
         }
         for result in results
     ]
